@@ -13,10 +13,7 @@ public class VolumeAreaApp extends JFrame implements ActionListener {
     private JButton calculateButton;
     private JTextField volumeText;
     private JTextField areaText;
-    private TextPanel textPanel;
-    private JButton button;
-    private ToolBar toolBar;
-    private LabelsClass labels;
+
 
     private JLabel area;
     private JLabel volume;

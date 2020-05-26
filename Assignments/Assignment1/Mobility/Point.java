@@ -27,7 +27,7 @@ public class Point {
     @return: the (x,y) format location
      */
     public String toString(){
-        return "* LOCATION: *\n(*) X: "+this.x+".\n(*) y: "+this.y+".\n ";
+        return "* LOCATION: *\n\n(*) X: "+this.x+".\n(*) y: "+this.y+".";
     }
 }
 

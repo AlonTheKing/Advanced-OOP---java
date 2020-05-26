@@ -44,6 +44,13 @@ public abstract class WaterAnimal extends Animal{
     this function makes the animals to dive deeper
     @param: deeper give us the depth we need to add to our current depth
      */
-    abstract Boolean Dive(double deeper);
-
+    Boolean Dive(double deeper) {
+        if (this.diveDepth - deeper < MAX_DIVE) {
+            this.diveDepth -= deeper;
+            return true;
+        } else {
+            System.out.println("too deep! atone!");
+            return false;
+        }
+    }
 }

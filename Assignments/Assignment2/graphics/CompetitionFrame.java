@@ -768,7 +768,7 @@ public class CompetitionFrame extends JFrame implements ActionListener {
         task[0] = new TimerTask() {
             @Override
             public void run() {
-                synchronized (task[0]){
+                synchronized (task[0]) {
                     double x = myAnimal[animalSize - 1].getLocation().x;
                     double y = myAnimal[animalSize - 1].getLocation().y;
                     boolean flag = false;
@@ -938,36 +938,37 @@ public class CompetitionFrame extends JFrame implements ActionListener {
         task[0] = new TimerTask() {
             @Override
             public void run() {
-
-                double x = myAnimal[animalSize - 1].getLocation().x;
-                double y = myAnimal[animalSize - 1].getLocation().y;
-                boolean flag = false;
-                int energy = myAnimal[animalSize - 1].getCurrEnergy();
-                int energyEater = myAnimal[animalSize - 1].getEnergyPerMeter();
-                if (energy > 0) {
-                    energy -= energyEater;
-                    myAnimal[animalSize - 1].Eat();
-                    System.out.println("energy level: " + energy);
-                    if (energy > 0 && energy - energyEater > 0) {
-                        flag = true;
-                    } else {
-                        flag = false;
-                    }
-                    if (x < 1000 && flag == true) {
-                        x = x + speed;
-                        myImages[curr].setBounds((int) x, (int) y, 100, 100);
-                        validate();
-                        repaint();
-                        myAnimal[animalSize - 1].setLocation(new Point((int) x, (int) y));
-                        model.setValueAt(energy, 0, 4);
-                        model.setValueAt(myAnimal[animalSize - 1].GetAddedEnergy(), 0, 6);
-                        model.setValueAt(myAnimal[animalSize - 1].getTotalDistance(), 0, 5);
-                    } else {
-                        myImages[0].remove(myImages[curr]);
-                        myImages[0].revalidate();
-                        myImages[0].repaint();
-                        task[0].cancel();
-                        t[1].schedule(task[1], 50, 100);
+                synchronized (task[0]) {
+                    double x = myAnimal[animalSize - 1].getLocation().x;
+                    double y = myAnimal[animalSize - 1].getLocation().y;
+                    boolean flag = false;
+                    int energy = myAnimal[animalSize - 1].getCurrEnergy();
+                    int energyEater = myAnimal[animalSize - 1].getEnergyPerMeter();
+                    if (energy > 0) {
+                        energy -= energyEater;
+                        myAnimal[animalSize - 1].Eat();
+                        System.out.println("energy level: " + energy);
+                        if (energy > 0 && energy - energyEater > 0) {
+                            flag = true;
+                        } else {
+                            flag = false;
+                        }
+                        if (x < 1000 && flag == true) {
+                            x = x + speed;
+                            myImages[curr].setBounds((int) x, (int) y, 100, 100);
+                            validate();
+                            repaint();
+                            myAnimal[animalSize - 1].setLocation(new Point((int) x, (int) y));
+                            model.setValueAt(energy, 0, 4);
+                            model.setValueAt(myAnimal[animalSize - 1].GetAddedEnergy(), 0, 6);
+                            model.setValueAt(myAnimal[animalSize - 1].getTotalDistance(), 0, 5);
+                        } else {
+                            myImages[0].remove(myImages[curr]);
+                            myImages[0].revalidate();
+                            myImages[0].repaint();
+                            task[0].cancel();
+                            t[1].schedule(task[1], 50, 100);
+                        }
                     }
                 }
             }
@@ -976,34 +977,36 @@ public class CompetitionFrame extends JFrame implements ActionListener {
         task[1] = new TimerTask() {
             @Override
             public void run() {
-                double x = myAnimal[animalSize - 1].getLocation().x;
-                double y = myAnimal[animalSize - 1].getLocation().y;
-                boolean flag = false;
-                int energy = myAnimal[animalSize - 1].getCurrEnergy();
-                int energyEater = myAnimal[animalSize - 1].getEnergyPerMeter();
-                if (energy > 0) {
-                    energy -= energyEater;
-                    myAnimal[animalSize - 1].Eat();
-                    System.out.println("energy level: " + energy);
-                    if (energy > 0 && energy - energyEater > 0) {
-                        flag = true;
-                    } else {
-                        flag = false;
-                    }
-                    if (x > 0 && flag) {
-                        x = x - speed;
-                        myImages[curr + 1].setBounds((int) x, (int) y, 100, 100);
-                        validate();
-                        repaint();
-                        myAnimal[animalSize - 1].setLocation(new Point((int) x, (int) y));
-                        model.setValueAt(energy, 0, 4);
-                        model.setValueAt(myAnimal[animalSize - 1].GetAddedEnergy(), 0, 6);
-                        model.setValueAt(myAnimal[animalSize - 1].getTotalDistance(), 0, 5);
-                    } else {
-                        task[1].cancel();
-                        myImages[0].remove(myImages[curr + 1]);
-                        myImages[0].revalidate();
-                        myImages[0].repaint();
+                synchronized (task[1]) {
+                    double x = myAnimal[animalSize - 1].getLocation().x;
+                    double y = myAnimal[animalSize - 1].getLocation().y;
+                    boolean flag = false;
+                    int energy = myAnimal[animalSize - 1].getCurrEnergy();
+                    int energyEater = myAnimal[animalSize - 1].getEnergyPerMeter();
+                    if (energy > 0) {
+                        energy -= energyEater;
+                        myAnimal[animalSize - 1].Eat();
+                        System.out.println("energy level: " + energy);
+                        if (energy > 0 && energy - energyEater > 0) {
+                            flag = true;
+                        } else {
+                            flag = false;
+                        }
+                        if (x > 0 && flag) {
+                            x = x - speed;
+                            myImages[curr + 1].setBounds((int) x, (int) y, 100, 100);
+                            validate();
+                            repaint();
+                            myAnimal[animalSize - 1].setLocation(new Point((int) x, (int) y));
+                            model.setValueAt(energy, 0, 4);
+                            model.setValueAt(myAnimal[animalSize - 1].GetAddedEnergy(), 0, 6);
+                            model.setValueAt(myAnimal[animalSize - 1].getTotalDistance(), 0, 5);
+                        } else {
+                            task[1].cancel();
+                            myImages[0].remove(myImages[curr + 1]);
+                            myImages[0].revalidate();
+                            myImages[0].repaint();
+                        }
                     }
                 }
             }
@@ -1023,36 +1026,37 @@ public class CompetitionFrame extends JFrame implements ActionListener {
         task[0] = new TimerTask() {
             @Override
             public void run() {
-
-                double x = myAnimal[animalSize - 1].getLocation().x;
-                double y = myAnimal[animalSize - 1].getLocation().y;
-                boolean flag = false;
-                int energy = myAnimal[animalSize - 1].getCurrEnergy();
-                int energyEater = myAnimal[animalSize - 1].getEnergyPerMeter();
-                if (energy > 0) {
-                    energy -= energyEater;
-                    myAnimal[animalSize - 1].Eat();
-                    System.out.println("energy level: " + energy);
-                    if (energy > 0 && energy - energyEater > 0) {
-                        flag = true;
-                    } else {
-                        flag = false;
-                    }
-                    if (x < 1000 && flag) {
-                        x = x + speed;
-                        myImages[curr].setBounds((int) x, (int) y, 100, 100);
-                        validate();
-                        repaint();
-                        myAnimal[animalSize - 1].setLocation(new Point((int) x, (int) y));
-                        model.setValueAt(energy, 0, 4);
-                        model.setValueAt(myAnimal[animalSize - 1].GetAddedEnergy(), 0, 6);
-                        model.setValueAt(myAnimal[animalSize - 1].getTotalDistance(), 0, 5);
-                    } else if (x >= 1000) {
-                        myImages[0].remove(myImages[curr]);
-                        myImages[0].revalidate();
-                        myImages[0].repaint();
-                        task[0].cancel();
-                        t[2].schedule(task[1], 50, 100);
+                synchronized (task[0]) {
+                    double x = myAnimal[animalSize - 1].getLocation().x;
+                    double y = myAnimal[animalSize - 1].getLocation().y;
+                    boolean flag = false;
+                    int energy = myAnimal[animalSize - 1].getCurrEnergy();
+                    int energyEater = myAnimal[animalSize - 1].getEnergyPerMeter();
+                    if (energy > 0) {
+                        energy -= energyEater;
+                        myAnimal[animalSize - 1].Eat();
+                        System.out.println("energy level: " + energy);
+                        if (energy > 0 && energy - energyEater > 0) {
+                            flag = true;
+                        } else {
+                            flag = false;
+                        }
+                        if (x < 1000 && flag) {
+                            x = x + speed;
+                            myImages[curr].setBounds((int) x, (int) y, 100, 100);
+                            validate();
+                            repaint();
+                            myAnimal[animalSize - 1].setLocation(new Point((int) x, (int) y));
+                            model.setValueAt(energy, 0, 4);
+                            model.setValueAt(myAnimal[animalSize - 1].GetAddedEnergy(), 0, 6);
+                            model.setValueAt(myAnimal[animalSize - 1].getTotalDistance(), 0, 5);
+                        } else if (x >= 1000) {
+                            myImages[0].remove(myImages[curr]);
+                            myImages[0].revalidate();
+                            myImages[0].repaint();
+                            task[0].cancel();
+                            t[2].schedule(task[1], 50, 100);
+                        }
                     }
                 }
             }
@@ -1061,35 +1065,37 @@ public class CompetitionFrame extends JFrame implements ActionListener {
         task[1] = new TimerTask() {
             @Override
             public void run() {
-                double x = myAnimal[animalSize - 1].getLocation().x;
-                double y = myAnimal[animalSize - 1].getLocation().y;
-                boolean flag = false;
-                int energy = myAnimal[animalSize - 1].getCurrEnergy();
-                int energyEater = myAnimal[animalSize - 1].getEnergyPerMeter();
-                if (energy > 0) {
-                    energy -= energyEater;
-                    myAnimal[animalSize - 1].Eat();
-                    System.out.println("energy level: " + energy);
-                    if (energy > 0 && energy - energyEater > 0) {
-                        flag = true;
-                    } else {
-                        flag = false;
-                    }
-                    if (x > 0 && flag) {
-                        x = x - speed;
-                        myImages[curr + 1].setBounds((int) x, (int) y, 100, 100);
-                        validate();
-                        repaint();
-                        myAnimal[animalSize - 1].setLocation(new Point((int) x, (int) y));
-                        model.setValueAt(energy, 0, 4);
-                        model.setValueAt(myAnimal[animalSize - 1].GetAddedEnergy(), 0, 6);
-                        model.setValueAt(myAnimal[animalSize - 1].getTotalDistance(), 0, 5);
-                    } else if (x <= 0) {
-                        task[1].cancel();
-                        myImages[0].remove(myImages[curr + 1]);
-                        myImages[0].revalidate();
-                        myImages[0].repaint();
+                synchronized (task[1]) {
+                    double x = myAnimal[animalSize - 1].getLocation().x;
+                    double y = myAnimal[animalSize - 1].getLocation().y;
+                    boolean flag = false;
+                    int energy = myAnimal[animalSize - 1].getCurrEnergy();
+                    int energyEater = myAnimal[animalSize - 1].getEnergyPerMeter();
+                    if (energy > 0) {
+                        energy -= energyEater;
+                        myAnimal[animalSize - 1].Eat();
+                        System.out.println("energy level: " + energy);
+                        if (energy > 0 && energy - energyEater > 0) {
+                            flag = true;
+                        } else {
+                            flag = false;
+                        }
+                        if (x > 0 && flag) {
+                            x = x - speed;
+                            myImages[curr + 1].setBounds((int) x, (int) y, 100, 100);
+                            validate();
+                            repaint();
+                            myAnimal[animalSize - 1].setLocation(new Point((int) x, (int) y));
+                            model.setValueAt(energy, 0, 4);
+                            model.setValueAt(myAnimal[animalSize - 1].GetAddedEnergy(), 0, 6);
+                            model.setValueAt(myAnimal[animalSize - 1].getTotalDistance(), 0, 5);
+                        } else if (x <= 0) {
+                            task[1].cancel();
+                            myImages[0].remove(myImages[curr + 1]);
+                            myImages[0].revalidate();
+                            myImages[0].repaint();
 
+                        }
                     }
                 }
             }
@@ -1109,36 +1115,37 @@ public class CompetitionFrame extends JFrame implements ActionListener {
         task[0] = new TimerTask() {
             @Override
             public void run() {
-
-                double x = myAnimal[animalSize - 1].getLocation().x;
-                double y = myAnimal[animalSize - 1].getLocation().y;
-                boolean flag = false;
-                int energy = myAnimal[animalSize - 1].getCurrEnergy();
-                int energyEater = myAnimal[animalSize - 1].getEnergyPerMeter();
-                if (energy > 0) {
-                    energy -= energyEater;
-                    myAnimal[animalSize - 1].Eat();
-                    System.out.println("energy level: " + energy);
-                    if (energy > 0 && energy - energyEater > 0) {
-                        flag = true;
-                    } else {
-                        flag = false;
-                    }
-                    if (x < 1000 && flag) {
-                        x = x + speed;
-                        myImages[curr].setBounds((int) x, (int) y, 100, 100);
-                        validate();
-                        repaint();
-                        myAnimal[animalSize - 1].setLocation(new Point((int) x, (int) y));
-                        model.setValueAt(energy, 0, 4);
-                        model.setValueAt(myAnimal[animalSize - 1].GetAddedEnergy(), 0, 6);
-                        model.setValueAt(myAnimal[animalSize - 1].getTotalDistance(), 0, 5);
-                    } else {
-                        myImages[0].remove(myImages[curr]);
-                        myImages[0].revalidate();
-                        myImages[0].repaint();
-                        task[0].cancel();
-                        t[3].schedule(task[1], 100, 100);
+                synchronized (task[0]) {
+                    double x = myAnimal[animalSize - 1].getLocation().x;
+                    double y = myAnimal[animalSize - 1].getLocation().y;
+                    boolean flag = false;
+                    int energy = myAnimal[animalSize - 1].getCurrEnergy();
+                    int energyEater = myAnimal[animalSize - 1].getEnergyPerMeter();
+                    if (energy > 0) {
+                        energy -= energyEater;
+                        myAnimal[animalSize - 1].Eat();
+                        System.out.println("energy level: " + energy);
+                        if (energy > 0 && energy - energyEater > 0) {
+                            flag = true;
+                        } else {
+                            flag = false;
+                        }
+                        if (x < 1000 && flag) {
+                            x = x + speed;
+                            myImages[curr].setBounds((int) x, (int) y, 100, 100);
+                            validate();
+                            repaint();
+                            myAnimal[animalSize - 1].setLocation(new Point((int) x, (int) y));
+                            model.setValueAt(energy, 0, 4);
+                            model.setValueAt(myAnimal[animalSize - 1].GetAddedEnergy(), 0, 6);
+                            model.setValueAt(myAnimal[animalSize - 1].getTotalDistance(), 0, 5);
+                        } else {
+                            myImages[0].remove(myImages[curr]);
+                            myImages[0].revalidate();
+                            myImages[0].repaint();
+                            task[0].cancel();
+                            t[3].schedule(task[1], 100, 100);
+                        }
                     }
                 }
             }
@@ -1147,30 +1154,32 @@ public class CompetitionFrame extends JFrame implements ActionListener {
         task[1] = new TimerTask() {
             @Override
             public void run() {
-                double x = myAnimal[animalSize - 1].getLocation().x;
-                double y = myAnimal[animalSize - 1].getLocation().y;
-                boolean flag = false;
-                int energy = myAnimal[animalSize - 1].getCurrEnergy();
-                int energyEater = myAnimal[animalSize - 1].getEnergyPerMeter();
-                if (energy > 0) {
-                    energy -= energyEater;
-                    myAnimal[animalSize - 1].Eat();
-                    System.out.println("energy level: " + energy);
-                    flag = energy > 0 && energy - energyEater > 0;
-                    if (x > 0 && flag) {
-                        x = x - speed;
-                        myImages[curr + 1].setBounds((int) x, (int) y, 100, 100);
-                        validate();
-                        repaint();
-                        myAnimal[animalSize - 1].setLocation(new Point((int) x, (int) y));
-                        model.setValueAt(energy, 0, 4);
-                        model.setValueAt(myAnimal[animalSize - 1].GetAddedEnergy(), 0, 6);
-                        model.setValueAt(myAnimal[animalSize - 1].getTotalDistance(), 0, 5);
-                    } else {
-                        task[1].cancel();
-                        myImages[0].remove(myImages[curr + 1]);
-                        myImages[0].revalidate();
-                        myImages[0].repaint();
+                synchronized (task[1]) {
+                    double x = myAnimal[animalSize - 1].getLocation().x;
+                    double y = myAnimal[animalSize - 1].getLocation().y;
+                    boolean flag = false;
+                    int energy = myAnimal[animalSize - 1].getCurrEnergy();
+                    int energyEater = myAnimal[animalSize - 1].getEnergyPerMeter();
+                    if (energy > 0) {
+                        energy -= energyEater;
+                        myAnimal[animalSize - 1].Eat();
+                        System.out.println("energy level: " + energy);
+                        flag = energy > 0 && energy - energyEater > 0;
+                        if (x > 0 && flag) {
+                            x = x - speed;
+                            myImages[curr + 1].setBounds((int) x, (int) y, 100, 100);
+                            validate();
+                            repaint();
+                            myAnimal[animalSize - 1].setLocation(new Point((int) x, (int) y));
+                            model.setValueAt(energy, 0, 4);
+                            model.setValueAt(myAnimal[animalSize - 1].GetAddedEnergy(), 0, 6);
+                            model.setValueAt(myAnimal[animalSize - 1].getTotalDistance(), 0, 5);
+                        } else {
+                            task[1].cancel();
+                            myImages[0].remove(myImages[curr + 1]);
+                            myImages[0].revalidate();
+                            myImages[0].repaint();
+                        }
                     }
                 }
             }
@@ -1189,34 +1198,35 @@ public class CompetitionFrame extends JFrame implements ActionListener {
         task[0] = new TimerTask() {
             @Override
             public void run() {
-
-                double x = myAnimal[animalSize - 1].getLocation().x;
-                double y = myAnimal[animalSize - 1].getLocation().y;
-                boolean flag = false;
-                int energy = myAnimal[animalSize - 1].getCurrEnergy();
-                int energyEater = myAnimal[animalSize - 1].getEnergyPerMeter();
-                if (energy > 0) {
-                    energy -= energyEater;
-                    myAnimal[animalSize - 1].Eat();
-                    System.out.println("energy level: " + energy);
-                    if (energy > 0 && energy - energyEater > 0) {
-                        flag = true;
-                    } else {
-                        flag = false;
-                    }
-                    if (x < 1000) {
-                        x = x + speed;
-                        myImages[curr].setBounds((int) x, (int) y, 100, 100);
-                        validate();
-                        repaint();
-                        myAnimal[animalSize - 1].setLocation(new Point((int) x, (int) y));
-                        model.setValueAt(energy, 0, 4);
-                        model.setValueAt(myAnimal[animalSize - 1].GetAddedEnergy(), 0, 6);
-                        model.setValueAt(myAnimal[animalSize - 1].getTotalDistance(), 0, 5);
-                    } else {
-                        myImages[0].revalidate();
-                        myImages[0].repaint();
-                        task[0].cancel();
+                synchronized (task[0]) {
+                    double x = myAnimal[animalSize - 1].getLocation().x;
+                    double y = myAnimal[animalSize - 1].getLocation().y;
+                    boolean flag = false;
+                    int energy = myAnimal[animalSize - 1].getCurrEnergy();
+                    int energyEater = myAnimal[animalSize - 1].getEnergyPerMeter();
+                    if (energy > 0) {
+                        energy -= energyEater;
+                        myAnimal[animalSize - 1].Eat();
+                        System.out.println("energy level: " + energy);
+                        if (energy > 0 && energy - energyEater > 0) {
+                            flag = true;
+                        } else {
+                            flag = false;
+                        }
+                        if (x < 1000) {
+                            x = x + speed;
+                            myImages[curr].setBounds((int) x, (int) y, 100, 100);
+                            validate();
+                            repaint();
+                            myAnimal[animalSize - 1].setLocation(new Point((int) x, (int) y));
+                            model.setValueAt(energy, 0, 4);
+                            model.setValueAt(myAnimal[animalSize - 1].GetAddedEnergy(), 0, 6);
+                            model.setValueAt(myAnimal[animalSize - 1].getTotalDistance(), 0, 5);
+                        } else {
+                            myImages[0].revalidate();
+                            myImages[0].repaint();
+                            task[0].cancel();
+                        }
                     }
                 }
             }
